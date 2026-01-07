@@ -33,20 +33,20 @@ export function initProjectsDropdown() {
       item.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-
+        
         dropdownItems.forEach((i) => i.classList.remove('projects__dropdown-item--active'));
-
+        
         item.classList.add('projects__dropdown-item--active');
-
+        
         const filterText = item.textContent.trim();
         dropdownText.textContent = filterText;
-
+        
         const category = item.getAttribute('data-filter');
-
+        
         dropdown.classList.remove('active');
-
+        
         filterProjects(category);
-
+        
         syncDesktopFilters(category);
       });
     });
