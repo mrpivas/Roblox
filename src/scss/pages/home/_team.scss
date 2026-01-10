@@ -1,7 +1,7 @@
 .team {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
   padding: 80px 0;
 
   // Черный фон с плавным переходом только сверху
@@ -13,11 +13,7 @@
     transform: translateX(-50%);
     width: 100vw;
     height: 100%;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      #000000 80px
-    );
+    background: linear-gradient(to bottom, transparent 0%, #000000 80px);
     z-index: -1;
     pointer-events: none;
   }
@@ -31,7 +27,6 @@
     transform: translateX(-50%);
     width: 100vw;
     height: calc(100% - 80px);
-    background: #000000;
     z-index: -1;
     pointer-events: none;
   }
@@ -39,6 +34,8 @@
   // === HEADER ===
 
   &__header {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,6 +44,8 @@
   }
 
   &__content {
+    position: relative;
+    z-index: 1;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -124,9 +123,16 @@
   // === SWIPER ===
 
   .team-swiper {
+    position: relative;
+    z-index: 1;
     width: 100%;
     overflow: hidden;
     margin-top: 40px;
+    padding: 20px 0;
+  }
+
+  .swiper-wrapper {
+    display: flex;
   }
 
   .swiper-wrapper {
@@ -135,24 +141,44 @@
 
   .swiper-slide {
     width: 290px;
-    height: 380px;
+    height: 420px;
     flex-shrink: 0;
   }
 
   // === ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ===
-
+  // Свечение, которое распространяется на блок "про нас и нашу работу"
   &__blur {
     position: absolute;
     width: 567px;
     height: 567px;
     background: #25136e;
-    filter: blur(260px);
-    -webkit-filter: blur(260px);
+    filter: blur(200px);
+    -webkit-filter: blur(200px);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;
     top: -114px;
     left: -324px;
+
+    // Расширяем свечение, чтобы оно распространялось на блок about выше
+    // Делаем его больше и выше, чтобы захватывать нижнюю часть блока about
+    @media (min-width: 768px) {
+      width: 800px;
+      height: 800px;
+      top: -350px; // Поднимаем выше, чтобы распространяться на блок about
+      left: -450px;
+      filter: blur(200px);
+      -webkit-filter: blur(200px);
+    }
+
+    @media (min-width: 1024px) {
+      width: 1000px;
+      height: 1000px;
+      top: -500px; // Еще выше для больших экранов
+      left: -550px;
+      filter: blur(200px);
+      -webkit-filter: blur(200px);
+    }
   }
 
   // === АДАПТИВНОСТЬ ===
@@ -175,16 +201,16 @@
 
     .swiper-slide {
       width: 250px;
-      height: 328px;
+      height: 368px;
     }
 
     &__blur {
-      width: 400px;
-      height: 400px;
-      filter: blur(180px);
-      -webkit-filter: blur(180px);
-      top: -80px;
-      left: -200px;
+      width: 600px;
+      height: 600px;
+      filter: blur(220px);
+      -webkit-filter: blur(220px);
+      top: -250px; // Поднимаем выше для планшетов, чтобы распространяться на блок about
+      left: -250px;
     }
   }
 
@@ -231,15 +257,15 @@
     .swiper-slide {
       width: calc(100vw - 80px) !important;
       max-width: 300px !important;
-      height: 380px;
+      height: 420px;
     }
 
     &__blur {
-      width: 300px;
-      height: 300px;
-      filter: blur(120px);
-      -webkit-filter: blur(120px);
-      top: -60px;
+      width: 500px;
+      height: 500px;
+      filter: blur(180px);
+      -webkit-filter: blur(180px);
+      top: -200px; // Поднимаем выше для мобильных
       left: -150px;
     }
   }
@@ -249,8 +275,14 @@
 
 .team-card {
   width: 100%;
-  height: 100%;
+  height: 380px;
   perspective: 1000px;
+  cursor: grab;
+  margin: 20px 0;
+
+  &:active {
+    cursor: grabbing;
+  }
 
   // Внутренний контейнер для flip-эффекта
   &__inner {
@@ -263,7 +295,7 @@
 
   // Флип при активном состоянии
   &.is-flipped &__inner {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) translateZ(10px);
   }
 
   // Общие стили для лицевой и обратной стороны

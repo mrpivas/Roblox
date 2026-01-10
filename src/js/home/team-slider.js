@@ -47,6 +47,19 @@ export function initTeamSlider() {
       onlyInViewport: true,
     },
 
+    // Поддержка тачпада и жестов
+    simulateTouch: true,
+    touchRatio: 1,
+    touchAngle: 45,
+    grabCursor: true,
+    
+    mousewheel: {
+      enabled: true,
+      forceToAxis: true,
+      sensitivity: 1,
+      releaseOnEdges: false,
+    },
+
     breakpoints: {
       320: {
         slidesPerView: 'auto',
@@ -82,19 +95,17 @@ export function initTeamSlider() {
     },
   });
 
-  // Flip-эффект для карточек - используем делегирование событий
-  document.addEventListener('click', (e) => {
-    const toggleButton = e.target.closest('.team-card__toggle');
+  // Flip-эффект для карточек - переворот при наведении
+  const cards = document.querySelectorAll('.team-card');
+  
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.classList.add('is-flipped');
+    });
     
-    if (toggleButton) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      const card = toggleButton.closest('.team-card');
-      if (card) {
-        card.classList.toggle('is-flipped');
-      }
-    }
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('is-flipped');
+    });
   });
 }
 

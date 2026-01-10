@@ -94,6 +94,11 @@
 		<!-- Main Content -->
 		<main class="services-page">
 			<section class="services-hero">
+				<!-- SVG фон под bg.png -->
+				<div class="services-hero__bg-svg">
+					<div class="services-hero__bg-svg-image"></div>
+				</div>
+
 				<picture>
 					<source srcset="./img/services/bg.webp" type="image/webp" />
 					<img src="./img/services/bg.png" alt="" class="services-hero__bg" aria-hidden="true" />
@@ -122,6 +127,11 @@
 					</div>
 
 					<div class="services-hero__process">
+						<!-- SVG фон -->
+						<div class="services-hero__process__bg">
+							<div class="services-hero__process__bg-image"></div>
+						</div>
+
 						<h2 class="services-hero__process-title">процесс разработки</h2>
 
 						<div class="services-hero__steps">
@@ -182,10 +192,6 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="services-hero__blur services-hero__blur--purple-1"></div>
-				<div class="services-hero__blur services-hero__blur--blue"></div>
-				<div class="services-hero__blur services-hero__blur--purple-2"></div>
 			</section>
 			<section class="services-catalog">
 				<picture class="services-catalog__bg">
@@ -347,8 +353,10 @@
 				<div class="footer__line"></div>
 
 				<div class="footer__bottom">
-					<a href="#privacy" class="footer__link">Политика обработки персональных данных</a>
-					<a href="#consent" class="footer__link">Согласие на&#160;обработку персональных данных</a>
+					<div class="footer__links">
+						<a href="#privacy" class="footer__link">Политика обработки персональных данных</a>
+						<a href="#consent" class="footer__link">Согласие на&#160;обработку персональных данных</a>
+					</div>
 
 					<div class="footer__socials footer__socials--desktop">
 						<a href="https://t.me/yourhandle" class="footer__social" target="_blank" rel="noopener noreferrer">Telegram</a>

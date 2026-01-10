@@ -24,11 +24,13 @@
     align-items: center;
     position: relative;
     width: 100%;
+    max-width: 941px;
     height: 66px;
     padding: 0 16px;
     border-radius: 20px;
     z-index: 0;
     overflow: hidden;
+    margin: 0 auto;
 
     background-color: rgba(255, 255, 255, 0.01);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -197,8 +199,8 @@
       background: var(--white-100);
       border-radius: 50%;
       transition: opacity 0.3s ease;
-      }
-      
+    }
+
     .menu-open & {
       span:nth-child(2),
       span:nth-child(4),
@@ -243,23 +245,22 @@
     text-decoration: none;
 
     transition: opacity 0.3s ease;
-
+  
     &-blur {
       position: absolute;
-      bottom: -28px;
+      bottom: -49px;
       left: 50%;
       transform: translateX(-50%);
       width: 72px;
       height: 28px;
       background: var(--accent);
-      filter: blur(20px);
+      filter: blur(6px);
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
       z-index: 0;
-      box-shadow: 0 0 30px var(--accent),
-                  0 0 50px rgba(101, 64, 251, 0.6),
-                  0 0 70px rgba(101, 64, 251, 0.4);
+      box-shadow: 0 0 30px var(--accent), 0 0 50px rgba(101, 64, 251, 0.6),
+        0 0 70px rgba(101, 64, 251, 0.4);
     }
 
     &-text {
@@ -326,9 +327,9 @@
   text-decoration: none;
   white-space: nowrap;
 
-  box-shadow: 0 0 30px rgba(106, 63, 252, 0.55);
+  filter: drop-shadow(0 0 30px rgba(113, 82, 239, 0.55));
 
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, filter 0.3s ease;
 
   &__text {
     position: relative;
@@ -342,7 +343,7 @@
 
   &:hover {
     background: #5a2fec;
-    box-shadow: 0 0 40px rgba(106, 63, 252, 0.7);
+    filter: drop-shadow(0 0 40px rgba(113, 82, 239, 0.75));
   }
 
   &:focus-visible {
@@ -352,7 +353,7 @@
 
   &:active {
     transform: translateY(0);
-    box-shadow: 0 0 20px rgba(106, 63, 252, 0.4);
+    filter: drop-shadow(0 0 20px rgba(113, 82, 239, 0.35));
   }
 
   @include mobile {

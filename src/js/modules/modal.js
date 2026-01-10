@@ -154,7 +154,24 @@ export function initModals() {
   briefOpenButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      briefModal.open();
+      const directSlide = btn.getAttribute("data-brief-direct");
+      if (directSlide) {
+        // Открываем бриф на конкретном слайде (режим прямого доступа)
+        if (window.briefModule && window.briefModule.openToSlide) {
+          window.briefModule.openToSlide(parseInt(directSlide));
+        } else {
+          // Если функция еще не инициализирована, открываем обычным способом
+          briefModal.open();
+          // И пытаемся перейти на слайд после небольшой задержки
+          setTimeout(() => {
+            if (window.briefModule && window.briefModule.openToSlide) {
+              window.briefModule.openToSlide(parseInt(directSlide));
+            }
+          }, 100);
+        }
+      } else {
+        briefModal.open();
+      }
     });
   });
 
@@ -165,6 +182,13 @@ export function initModals() {
 
   selectionResultButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
+      // Проверяем, не отключена ли кнопка (валидация из selection-params.js)
+      if (btn.disabled || btn.classList.contains('disabled')) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+      
       e.preventDefault();
       selectionResultModal.open();
     });

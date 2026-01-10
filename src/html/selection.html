@@ -14,21 +14,22 @@
     <main role="main" class="selection">
       <div class="selection__bg">
         <div class="selection__bg-image"></div>
-        <div class="selection__glow selection__glow--top"></div>
-        <div class="selection__glow selection__glow--bottom"></div>
       </div>
 
-      <div class="selection__container">
-        <h1 class="selection__main-title">Подобрать услугу</h1>
+      <div class="container">
+        <div class="selection__container">
+          <h1 class="selection__main-title">Подобрать услугу</h1>
 
-        @@include('selection/params.html')
+          @@include('selection/params.html')
 
-        <button
-          class="selection__result-btn"
-          data-modal-open="selectionResultModal"
-        >
-          <span>Результат</span>
-        </button>
+          <button
+            class="selection__result-btn disabled"
+            data-modal-open="selectionResultModal"
+            disabled
+          >
+            <span>Результат</span>
+          </button>
+        </div>
       </div>
     </main>
 

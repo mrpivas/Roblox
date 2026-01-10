@@ -21,36 +21,35 @@
     </button>
 
     <!-- Контент -->
-    <div class="modal__slide modal__slide--active">
-      <div class="modal__content">
-        <!-- Левая часть - текст и кнопка -->
-        <div class="modal__left">
-          <h2 class="modal__title" id="selectionResultTitle">
-            Название услуги
-          </h2>
-          <p class="modal__description" id="selectionResultDescription">
-            Текст текст текст Текст текст текстТекст текст текстТекст текст
-            текстТекст текст текстТекст текст текстТекст текст текстТекст текст
-            текст
-          </p>
-          <button
-            class="modal__button modal__button--start"
-            data-modal-open="briefModal"
-            data-modal-close
-            aria-label="Заказать услугу"
-          >
-            Заказать
-          </button>
-        </div>
+    <div class="modal__content modal__content--result">
+      <!-- Левая часть - текст и кнопка -->
+      <div class="modal__left modal__left--result">
+        <h2 class="modal__title modal__title--result" id="selectionResultTitle">
+          Название услуги
+        </h2>
+        <p class="modal__description modal__description--result" id="selectionResultDescription">
+          Текст текст текст Текст текст текстТекст текст текстТекст текст
+          текстТекст текст текстТекст текст текстТекст текст текстТекст текст
+          текст
+        </p>
+        <button
+          class="modal__button modal__button--result"
+          data-modal-open="briefModal"
+          data-brief-direct="5"
+          data-modal-close
+          aria-label="Заказать услугу"
+        >
+          Заказать
+        </button>
+      </div>
 
-        <!-- Правая часть - изображение -->
-        <div class="modal__right">
-          <img
-            src="./img/modal/main.png"
-            alt="Иллюстрация"
-            class="modal__image"
-          />
-        </div>
+      <!-- Правая часть - изображение -->
+      <div class="modal__right modal__right--result">
+        <img
+          src="./img/modal/main.png"
+          alt="Иллюстрация"
+          class="modal__image"
+        />
       </div>
     </div>
   </div>

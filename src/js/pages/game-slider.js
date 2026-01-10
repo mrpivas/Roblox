@@ -33,6 +33,17 @@ export function initGameSlider() {
     }
   }
 
+  // Остановка при наведении мыши
+  slider.addEventListener('mouseenter', () => {
+    pauseAnimation();
+  });
+
+  slider.addEventListener('mouseleave', () => {
+    if (!isDragging) {
+      resumeAnimation();
+    }
+  });
+
   // Клик на "Предыдущий"
   prevBtn.addEventListener('click', () => {
     pauseAnimation();

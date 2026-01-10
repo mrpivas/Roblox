@@ -45,9 +45,16 @@ export function initServicesSlider() {
   let isDown = false;
   let startX;
   let scrollLeft;
+  let hasDragged = false;
 
   wrapper.addEventListener('mousedown', (e) => {
+    // Проверяем, что клик не на кнопке навигации
+    if (e.target.closest('.services-catalog__nav-btn')) {
+      return;
+    }
+    
     isDown = true;
+    hasDragged = false;
     wrapper.style.cursor = 'grabbing';
     startX = e.pageX - wrapper.offsetLeft;
     scrollLeft = wrapper.scrollLeft;
@@ -55,6 +62,7 @@ export function initServicesSlider() {
 
   wrapper.addEventListener('mouseleave', () => {
     isDown = false;
+    hasDragged = false;
     wrapper.style.cursor = 'grab';
   });
 
@@ -65,10 +73,43 @@ export function initServicesSlider() {
 
   wrapper.addEventListener('mousemove', (e) => {
     if (!isDown) return;
-    e.preventDefault();
+    
     const x = e.pageX - wrapper.offsetLeft;
     const walk = (x - startX) * 2;
-    wrapper.scrollLeft = scrollLeft - walk;
+    
+    // Если движение больше 5px, считаем это перетаскиванием
+    if (Math.abs(walk) > 5) {
+      hasDragged = true;
+      e.preventDefault();
+      wrapper.scrollLeft = scrollLeft - walk;
+    }
+  });
+
+  // Клик по карточке для перехода
+  wrapper.addEventListener('click', (e) => {
+    // Если был drag, не переходим по ссылке
+    if (hasDragged) {
+      return;
+    }
+    
+    // Если клик на кнопке навигации, не обрабатываем
+    if (e.target.closest('.services-catalog__nav-btn')) {
+      return;
+    }
+    
+    // Находим карточку, на которую кликнули
+    const card = e.target.closest('.service-card');
+    if (!card) return;
+    
+    // Находим ссылку внутри карточки
+    const link = card.querySelector('.service-card__button');
+    if (link && link.href) {
+      // Если клик не на самой ссылке, переходим программно
+      if (!e.target.closest('.service-card__button')) {
+        e.preventDefault();
+        window.location.href = link.href;
+      }
+    }
   });
 
   wrapper.style.cursor = 'grab';

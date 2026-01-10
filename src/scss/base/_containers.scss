@@ -7,8 +7,10 @@
 
 /* Контейнеры */
 .container {
+  position: relative;
+  z-index: 1;
 	margin: 0 auto;
-	padding: 0 120px;
+	padding: 0 20px;
 	max-width: var(--container-width);
 	width: 100%;
 

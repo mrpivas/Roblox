@@ -14,7 +14,6 @@ export function initBrief() {
   const nameInput = modal.querySelector("[data-name-input]");
   const emailInput = modal.querySelector("[data-email-input]");
   const messageInput = modal.querySelector("[data-message-input]");
-  const helpButton = modal.querySelector(".modal__help");
   const tooltipWrapper = document.getElementById("helpTooltip");
   const tooltip = tooltipWrapper ? tooltipWrapper.querySelector(".modal__tooltip") : null;
   const tooltipOverlay = tooltipWrapper ? tooltipWrapper.querySelector(".modal__tooltip-overlay") : null;
@@ -22,6 +21,7 @@ export function initBrief() {
 
   let currentSlide = 1;
   const selectedOptions = new Set();
+  let isDirectMode = false; // Режим прямого открытия на слайде (без прогресса и навигации)
 
   // Функция для получения текущей активной кнопки "Далее"
   function getCurrentNextButton() {
@@ -36,7 +36,16 @@ export function initBrief() {
   }
 
   // Показать слайд
-  function showSlide(slideNumber) {
+  function showSlide(slideNumber, directMode = false) {
+    isDirectMode = directMode;
+    
+    // Управляем классом для режима прямого открытия
+    if (directMode) {
+      modal.classList.add("modal--direct-mode");
+    } else {
+      modal.classList.remove("modal--direct-mode");
+    }
+
     slides.forEach((slide) => {
       if (parseInt(slide.dataset.slide) === slideNumber) {
         slide.classList.add("modal__slide--active");
@@ -175,21 +184,26 @@ export function initBrief() {
   closeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       setTimeout(() => {
-        showSlide(1);
+        showSlide(1, false);
         selectedOptions.clear();
         options.forEach((opt) => opt.classList.remove("active"));
         updateNextButton();
+        isDirectMode = false;
+        modal.classList.remove("modal--direct-mode");
       }, 300);
     });
   });
 
-  // Тултип помощи
-  if (helpButton && tooltipWrapper) {
+  // Тултип помощи - обработчики для всех кнопок помощи на всех слайдах
+  const helpButtons = modal.querySelectorAll(".modal__help");
+  helpButtons.forEach((helpButton) => {
     helpButton.addEventListener("click", (e) => {
       e.stopPropagation();
-      tooltipWrapper.classList.toggle("active");
+      if (tooltipWrapper) {
+        tooltipWrapper.classList.toggle("active");
+      }
     });
-  }
+  });
 
   if (tooltipClose && tooltipWrapper) {
     tooltipClose.addEventListener("click", (e) => {
@@ -208,5 +222,27 @@ export function initBrief() {
   // Инициализация
   showSlide(1);
   updateNextButton();
+
+  // Экспортируем функцию для открытия на конкретном слайде
+  return {
+    openToSlide: function(slideNumber) {
+      showSlide(slideNumber, true);
+      // Открываем модалку
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      
+      // Фокус на первое поле формы
+      setTimeout(() => {
+        const activeSlide = modal.querySelector(`.modal__slide[data-slide="${slideNumber}"]`);
+        if (activeSlide) {
+          const firstInput = activeSlide.querySelector('input:not([type="checkbox"]):not([type="radio"])');
+          if (firstInput) {
+            firstInput.focus();
+          }
+        }
+      }, 100);
+    }
+  };
 }
 

@@ -7,20 +7,28 @@
   padding: 120px 0 80px;
   overflow: visible;
 
-  // Черный фон от конца hero__title до конца секции
-  &::after {
-    content: "";
+  // Фоновое изображение и эллипсы
+  &__bg {
     position: absolute;
-    top: 280px; // После hero__title (subtitle 22px + title ~100px + margins)
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    height: calc(100% - 280px);
-    background: #000000;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
     pointer-events: none;
   }
 
+  &__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/svgicons/bg/home_hero.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   &__dawn {
     position: absolute;
     top: 318px;
@@ -29,7 +37,7 @@
     width: 100vw;
     height: 389px;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
 
     img {
       width: 100%;
@@ -264,7 +272,6 @@
   &__stat-image {
     width: 100%;
     height: 156px;
-    background: rgba(255, 255, 255, 0.02);
     border-radius: 20px 20px 0 0;
     overflow: hidden;
 

@@ -4,6 +4,30 @@
   overflow: hidden;
   padding: 80px 0;
 
+  // Фоновое изображение и эллипсы
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  &__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/svgicons/bg/home_about.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
   // Wrapper для flex-layout
   &__wrapper {
     display: flex;
@@ -126,6 +150,23 @@
     display: flex;
     align-items: center;
     position: relative;
+
+    // Порядок z-index через прямых потомков для большей специфичности
+    > *:nth-child(1) {
+      z-index: 5 !important;
+    }
+    > *:nth-child(2) {
+      z-index: 4 !important;
+    }
+    > *:nth-child(3) {
+      z-index: 3 !important;
+    }
+    > *:nth-child(4) {
+      z-index: 2 !important;
+    }
+    > *:nth-child(5) {
+      z-index: 1 !important;
+    }
   }
 
   &__avatar {
@@ -134,7 +175,6 @@
     min-width: 46px;
     min-height: 46px;
     border-radius: 50%;
-    border: 1px solid #000000;
     object-fit: cover;
     flex-shrink: 0;
     position: relative;
@@ -143,23 +183,18 @@
       margin-left: -16px;
     }
 
-    // Последняя аватарка с градиентом
+    // Последняя аватарка --more теперь как обычная фотка
     &--more {
-      background: linear-gradient(90deg, #9a83f7 0%, #97acf8 100%);
-      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      padding: 8px;
 
       img {
-        width: 30px;
-        height: 30px;
-        min-width: 30px;
-        min-height: 30px;
-        border: none;
-        margin: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
       }
     }
   }
@@ -242,23 +277,6 @@
 
   // === ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ===
 
-  &__blur {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1;
-
-    &--pink {
-      width: 448px;
-      height: 448px;
-      background: rgba(210, 64, 251, 0.6);
-      filter: blur(260px);
-      -webkit-filter: blur(260px);
-      top: 81px;
-      right: -152px;
-    }
-  }
-
   // === АДАПТИВНОСТЬ ===
 
   @include tablet {
@@ -323,14 +341,6 @@
 
     &__stat-label {
       font-size: 12px;
-    }
-
-    &__blur--pink {
-      width: 300px;
-      height: 300px;
-      filter: blur(180px);
-      -webkit-filter: blur(180px);
-      right: -100px;
     }
   }
 
@@ -441,13 +451,6 @@
       margin: 0;
       align-self: flex-start;
       margin-left: calc((100% - 335px) / 2);
-    }
-
-    &__blur--pink {
-      width: 200px;
-      height: 200px;
-      filter: blur(120px);
-      -webkit-filter: blur(120px);
     }
   }
 }

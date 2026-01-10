@@ -1,5 +1,3 @@
-import './grid-background.js';
-
 import { initHeaderActive } from './header-active.js';
 initHeaderActive();
 
@@ -23,11 +21,11 @@ burgerMenu();
 import langToggle from './modules/lang-toggle.js';
 langToggle();
 
+import { initBrief } from './modules/brief.js';
+window.briefModule = initBrief();
+
 import { initModals } from './modules/modal.js';
 initModals();
-
-import { initBrief } from './modules/brief.js';
-initBrief();
 
 import { initPhoneMask } from './modules/phoneMask.js';
 initPhoneMask();
@@ -56,11 +54,17 @@ initProjectsDropdown();
 import { initProjectsLoadMore } from './pages/projects-load-more.js';
 initProjectsLoadMore();
 
+import { initProjectsCardClick } from './pages/projects-card-click.js';
+initProjectsCardClick();
+
 import { initGameSlider } from './pages/game-slider.js';
 initGameSlider();
 
 import { initServicesSlider } from './pages/services-slider.js';
 initServicesSlider();
+
+import { initServiceGamesSlider } from './pages/service-games-slider.js';
+initServiceGamesSlider();
 
 import { initSelectionParams } from './pages/selection-params.js';
 initSelectionParams();

@@ -37,7 +37,7 @@
   &__left {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     gap: 20px;
   }
 
@@ -92,6 +92,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 9px 7px;
+    box-shadow: 0px 0px 30px 0px rgba(113, 82, 239, 0.55);
 
     svg {
       width: 32px;
@@ -101,10 +102,12 @@
     &:hover {
       background: lighten(#6540fb, 10%);
       transform: translateY(-2px);
+      box-shadow: 0px 0px 40px 0px rgba(113, 82, 239, 0.75);
     }
 
     &:active {
       transform: translateY(0);
+      box-shadow: 0px 0px 20px 0px rgba(113, 82, 239, 0.35);
     }
   }
 
@@ -118,6 +121,15 @@
   &__button {
     width: 180px;
     height: 50px;
+    filter: drop-shadow(0 0 30px rgba(113, 82, 239, 0.55));
+
+    &:hover {
+      filter: drop-shadow(0 0 40px rgba(113, 82, 239, 0.75));
+    }
+
+    &:active {
+      filter: drop-shadow(0 0 20px rgba(113, 82, 239, 0.45));
+    }
   }
 
   // Соцсети в actions - только на мобильных
@@ -139,7 +151,13 @@
   &__bottom {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
     gap: 40px;
   }
 
@@ -170,9 +188,8 @@
 
     &--desktop {
       display: flex; // Показываем на десктопе
-    align-items: center;
-    gap: 40px;
-    margin-left: auto;
+      align-items: center;
+      gap: 40px;
     }
   }
 
@@ -258,6 +275,10 @@
       gap: 20px;
     }
 
+    &__links {
+      gap: 20px;
+    }
+
     &__link {
       font-size: 11px;
 
@@ -270,7 +291,6 @@
 
     &__socials--desktop {
       flex: 1 1 100%;
-      margin-left: 0;
       gap: 30px;
     }
 
@@ -389,6 +409,13 @@
       gap: 20px;
     }
 
+    &__links {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
     &__link {
       font-size: 12px;
       line-height: 1.22;
@@ -397,11 +424,11 @@
 
       &:first-child {
         order: 2;
-    }
+      }
 
       &:nth-child(2) {
         order: 1;
-    }
+      }
     }
   }
 }

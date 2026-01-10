@@ -1,14 +1,12 @@
 .selection-page {
   background: var(--black-100);
-  min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
 .selection {
   position: relative;
-  min-height: 100vh;
-  padding: 106px 0 216px;
+  padding: 130px 0 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,41 +23,20 @@
 
   &__bg-image {
     position: absolute;
-    top: -10px;
-    left: -8.89px;
-    width: 1457.78px;
-    height: 820px;
-    opacity: 0.3;
-  }
-
-  &__glow {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-
-    &--top {
-      top: -62px;
-      left: -880px;
-      width: 3200px;
-      height: 274px;
-      background: #263859;
-      filter: blur(144px);
-    }
-
-    &--bottom {
-      bottom: -168px;
-      left: -210px;
-      width: 1860px;
-      height: 693px;
-      background: var(--black-100);
-      filter: blur(310px);
-    }
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/svgicons/bg/selection.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   &__container {
     width: 100%;
     max-width: 1321px;
-    padding: 0 20px;
+    margin: 0 auto;
     position: relative;
     z-index: 1;
     display: flex;
@@ -177,15 +154,15 @@
     // Фон вместо border-image
     background: var(--accent);
     border: none;
-    
+
     // Обрезаем углы с помощью clip-path
     clip-path: polygon(
-      12px 0,                 /* верхний левый угол со скосом */
-      100% 0,                 /* верхний правый */
-      100% calc(100% - 12px), /* нижний правый со скосом */
-      calc(100% - 12px) 100%, /* нижний правый угол */
-      0 100%,                 /* нижний левый */
-      0 12px                  /* верхний левый угол */
+      12px 0,
+      /* верхний левый угол со скосом */ 100% 0,
+      /* верхний правый */ 100% calc(100% - 12px),
+      /* нижний правый со скосом */ calc(100% - 12px) 100%,
+      /* нижний правый угол */ 0 100%,
+      /* нижний левый */ 0 12px /* верхний левый угол */
     );
 
     font-family: "Montserrat", sans-serif;
@@ -196,15 +173,15 @@
     color: var(--white-100);
     text-decoration: none;
 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
     box-shadow: 0px 0px 30px 0px rgba(113, 82, 239, 0.55);
 
-    &:hover {
+    &:hover:not(:disabled):not(.disabled) {
       transform: translateY(-2px);
       box-shadow: 0px 0px 40px 0px rgba(113, 82, 239, 0.75);
     }
 
-    &:active {
+    &:active:not(:disabled):not(.disabled) {
       transform: translateY(0);
       box-shadow: 0px 0px 20px 0px rgba(113, 82, 239, 0.35);
     }
@@ -212,6 +189,20 @@
     &:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 4px;
+    }
+
+    &:disabled,
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #263859;
+      box-shadow: none;
+      transform: none;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
     }
 
     span {
@@ -269,4 +260,3 @@
     }
   }
 }
-

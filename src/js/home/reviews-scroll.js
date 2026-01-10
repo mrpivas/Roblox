@@ -125,6 +125,53 @@ export function initReviewsScroll() {
   wrapper.addEventListener('touchmove', drag, { passive: false });
   wrapper.addEventListener('touchend', stopDrag);
 
+  // Поддержка движения при наведении курсора
+  let isCursorHovering = false;
+  
+  wrapper.addEventListener('mouseenter', () => {
+    isCursorHovering = true;
+  });
+  
+  wrapper.addEventListener('mouseleave', () => {
+    isCursorHovering = false;
+  });
+  
+  wrapper.addEventListener('mousemove', (e) => {
+    if (!isCursorHovering || isDragging) return;
+    
+    const rect = wrapper.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const containerWidth = rect.width;
+    
+    // Вычисляем позицию курсора от 0 до 1
+    const position = mouseX / containerWidth;
+    
+    // Получаем ширину одного полного набора карточек
+    const trackWidth = track.scrollWidth / 2;
+    
+    // Преобразуем позицию курсора в позицию скролла
+    const targetPosition = position * trackWidth;
+    
+    // Плавно перемещаемся к целевой позиции
+    if (Math.abs(targetPosition - scrollPosition) > 5) {
+      scrollPosition = targetPosition;
+      
+      // Зацикливание
+      if (scrollPosition >= trackWidth) {
+        scrollPosition = scrollPosition - trackWidth;
+      } else if (scrollPosition < 0) {
+        scrollPosition = trackWidth + scrollPosition;
+      }
+      
+      track.style.transform = `translateX(-${scrollPosition}px)`;
+      track.style.transition = 'transform 0.3s ease';
+      
+      setTimeout(() => {
+        track.style.transition = '';
+      }, 300);
+    }
+  });
+
   // === NAVIGATION BUTTONS ===
   
   function scrollToNext() {

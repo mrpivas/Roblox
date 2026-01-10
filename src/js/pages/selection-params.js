@@ -10,6 +10,38 @@ export function initSelectionParams() {
   // Объект для хранения выбранных параметров
   const selectedParams = {};
 
+  // Получаем все группы параметров для валидации
+  const allParamGroups = new Set();
+  paramButtons.forEach((button) => {
+    const paramGroup = button.getAttribute('data-param');
+    if (paramGroup) {
+      allParamGroups.add(paramGroup);
+    }
+  });
+
+  // Функция для проверки, все ли параметры выбраны
+  function validateSelection() {
+    const allSelected = Array.from(allParamGroups).every(
+      group => selectedParams[group] !== undefined
+    );
+    return allSelected;
+  }
+
+  // Функция для обновления состояния кнопки результата
+  function updateResultButton() {
+    if (!resultButton) return;
+    
+    const isValid = validateSelection();
+    
+    if (isValid) {
+      resultButton.disabled = false;
+      resultButton.classList.remove('disabled');
+    } else {
+      resultButton.disabled = true;
+      resultButton.classList.add('disabled');
+    }
+  }
+
   paramButtons.forEach((button) => {
     button.addEventListener('click', () => {
       // Получаем группу параметров (section1, section2 и т.д.)
@@ -31,18 +63,31 @@ export function initSelectionParams() {
       
       // Сохраняем выбранное значение
       selectedParams[paramGroup] = paramValue;
+      
+      // Обновляем состояние кнопки результата
+      updateResultButton();
     });
   });
 
   // Обработчик для кнопки результата
   if (resultButton) {
-    resultButton.addEventListener('click', () => {
+    resultButton.addEventListener('click', (e) => {
+      // Проверяем валидность перед открытием модалки
+      if (!validateSelection()) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+
       // Определяем услугу на основе выбранных параметров
       const serviceInfo = determineService(selectedParams);
       
       // Обновляем модалку с информацией об услуге
       updateResultModal(serviceInfo);
     });
+
+    // Инициализация: кнопка должна быть отключена изначально
+    updateResultButton();
   }
 }
 
